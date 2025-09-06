@@ -14,6 +14,6 @@ Route::get('/app', function () {
     return view('usuario.index');
 });
 
-Route::get('/action', function () {
+Route::get('/usuario/action', function () {
     return view('usuario.action');
 });
