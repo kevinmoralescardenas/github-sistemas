@@ -1,19 +1,22 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
-Route::get('/', function () {
-    return view('welcome');
-});
+use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
     return view('plantilla.app');
 });
 
-Route::get('/app', function () {
-    return view('usuario.index');
-});
+// Route::get('/', function () {
+//     return view('plantilla.app');
+// });
 
-Route::get('/usuario/action', function () {
-    return view('usuario.action');
-});
+// Route::get('/app', function () {
+//     return view('usuario.index');
+// });
+
+// Route::get('/usuario/action', function () {
+//     return view('usuario.action');
+// });
+
+Route::resource('usuarios', UserController::class);

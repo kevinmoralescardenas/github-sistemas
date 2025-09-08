@@ -18,7 +18,7 @@
                                         <button type="submit" class="btn btn-primary">
                                             <i class="fas fa-search"></i>
                                             Buscar</button>
-                                        <a href="/usuario/action" class="btn btn-primary">Nuevo</a>
+                                        <a href="{{ route('usuarios.create') }}" class="btn btn-primary">Nuevo</a>
                                     </div>
                                 </div>
                             </form>
@@ -31,21 +31,33 @@
                                     <th style="width: 20px">ID</th>
                                     <th>Nombre</th>
                                     <th>Email</th>
+                                    <th>activo</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr class="align-middle">
-                                    <td>
-                                        <a href="#" class="btn btn-warning btn-sm"> <i class="bi bi-pencil-fill"></i> </a>&nbsp;
-                                        <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modal-eliminar-01">
-                                            <i class="bi bi-trash-fill"></i>
-                                        </button>
-                                    </td>
-                                    <td>01</td>
-                                    <td>Carlos Barrientos</td>
-                                    <td>carlosbarrientos@gmail.com</td>
-                                </tr>
-                                @include('usuario.delete')
+                                    @if(count($registros)<=0)
+                                        <tr>
+                                            <td colspan="4">No hay registros que coincidan con la busqueda</td>
+                                        </tr>
+                                        @else 
+                                        @foreach($registros as $registro)
+                                        <tr class="align-middle">
+                                            <td>
+                                                <a href="#" class="btn btn-warning btn-sm"> <i class="bi bi-pencil-fill"></i> </a>&nbsp;
+                                                <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modal-eliminar-01">
+                                                    <i class="bi bi-trash-fill"></i>
+                                                </button>
+                                            </td>
+                                            <td>{{ $registro->id }}</td>
+                                            <td>{{ $registro->name }}</td>
+                                            <td>{{ $registro->email }}</td>
+                                            <td>{{ $registro->activo }}</td>
+                                        </tr>
+                                        @endforeach
+                                        @include('usuario.delete')
+                                    @endif
+                                
+                                
                                 </tbody>
                             </table>
                         </div>
@@ -53,13 +65,7 @@
                     </div>
                     <!-- /.card-body -->
                     <div class="card-footer clearfix">
-                        <ul class="pagination pagination-sm m-0 float-end">
-                            <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
-                        </ul>
+                       {{ $registros->links() }}
                     </div>
                 </div>
                 <!-- /.card -->
